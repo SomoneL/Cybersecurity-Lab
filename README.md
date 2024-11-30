@@ -119,7 +119,6 @@ The objective of the lab is to provide a hands-on learning experience in setting
    
 
 
-    
 <h2>Step 3: Active Directory and Control Domain </h2>
 <ol>
    <li> Setup Active Directory Domain Services on the Windows Server</li>
@@ -154,128 +153,40 @@ The objective of the lab is to provide a hands-on learning experience in setting
       </li>
    </ul>
 </ol>
-<h2>Part 4 - Kali Linux Brute Force Attack on the Target Machine</h2>
+<h2>Step 4: Kali Linux Brute Force Attack on the Target Machine</h2>
 <ol>
-   <li>Write a Bash Script</li>
+   <li>Configure Network</li>
    <ul>
-      <li>Create a script to automate adding users and assigning them to groups. The script name we will be using is (user_management.sh):.</li>
+      <li>Power up the Kali Linux VM and log in. From the desktop, right-click the connections icon at the top right of the screen > Edit Connections > Wired connection 1 > Edit selected connection > IPv4 Settings > set Method to "Manual" > Add > Address: 192.168.10.250 > Netmask: 24 > Gateway: 192.168.10.1 > DNS servers: 8.8.8.8 > Save. Disconnect from the network, then rejoin. Open the terminal and run ip a and you should see the changes be reflected here. You can verify connectivity by running pinggoogle.com and/or 192.168.10.10. Now run sudo apt-get update && sudo apt-get upgrade -y. Continue once finished installing.</li>
    </ul>
-   <br/>
-   <img src="https://i.imgur.com/7V1Ieb7.png" height="40%" width="40%" alt="script"/>
-   <br/>
-   <li>Make the Script Executable:</li>
-   <img src="https://i.imgur.com/HsDzzg6.png" height="40%" width="40%" alt="script"/>
-   <br/>
-   <li>Run the Script:</li>
-   <img src="https://i.imgur.com/y0pv2di.png" height="40%" width="40%" alt="script" "/>
-   <br/>
+   <li>Setting up the Attack:</li>
+      <ul>
+      <li>Run mkdir ad-project and sudo apt-get install -y crowbar. Now navigate with cd /usr/share/wordlists. Verify "rockyou.txt.gz" is present by running ls, and unzip it using sudo gunzip rockyou.txt.gz. Now copy this file into the directory we made earlier using cp rockyou.txt ~/Desktop/ad-project. Now run cd ~/Desktop/ad-project. Now we will take the first 20 lines of this file and output it into a new file called passwords.txt using head -n 20 rockyou.txt > passwords.txt</li>
+   </ul>
+   <li>Enable Remote Desktop</li>
+      <ul>
+      <li>On our target machine, search "This PC" > Properties > Advanced System Settings > Remote > check Allow remote connections to this computer > Select users > Add > Enter the usernames we created earlier such as "jsmith" and "tsmith" > Apply.</li>
+   </ul>
+    <li>Attack</li>
+       <ul>
+      <li>Navigate back to the Linux machine. crowbar -h to get more information about the Crowbar tool. Run crowbar -b rdp -u tsmith -C passwords.txt -s 192.168.10.100/32. If a password listed in passwords.txt matches a password assigned to the user-specified, you will get a success message with the password attributed to the specified user.
+</li>
+   </ul>
+   <li>Analyze Attack Using Splunk</li>
+       <ul>
+      <li>We can view all activity of this endpoint using index=endpoint, and if we know something happened to Terry's account we can also add tsmith. We will notice when we scroll down and select EventCode there are 3 events, and one stands out. Value 4625 stands out because it occurred 20 times. A quick Google search (https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4625) verifies that this is 60 counts of an account failing to log on. When investigating further, it can be noted that all of the counts are occurring at approximately the same time which is an indication of brute force activity. We also notice an event code 4624 which when is looked into (https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4624) we know is an indication of a successful logon. We can expand this event by clicking "Show all x lines", and we can then see the soruce of this logon.</li>
+   </ul>
+   <li>Run Tests on the Target Machine using Atomic Red Team (ART)</li>
+       <ul>
+      <li> Open Powershell as administrator. Run Set-ExecutionPolicy Bypass CurrentUser > Y. Click the up arrow located at the bottom right of your window. Windows Security > Virus & threat protection > Manage Settings > Add or Remove Exclusions > Add an exclusion > Folder > This PC > Local Disk (C:). Now navigate back to PowerShell and run IEX ( IWR 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing); followed by Install-AtomicRedTeam -getAtomics and Y.</li>
+   </ul>
+   <ul>
+      <li>Now navigate to the (C:) drive > AtomicRedTeam > Atomics. We can also navigate to https://attack.mitre.org/ in order to view adversary attacks and techniques, as well as use it as a key for the "T" values. Run Invoke-AtomicTest T1136.001 to T1136 is a persistence, create local account test. After running this test and checking Splunk, we can see that no events popped up with the NewLocalUser that was created. This is excellent because we have just identified a gap in our protection. We can continue this with as many tests as we please. This makes Atomic Red Team very valuable for an organization.</li>
+   </ul>
    </li></ul>
-</ol>
-<h2>Step 4: Implement Access Control Policies </h2>
-<ol>
-   <li>Define User Roles: Assign specific roles to users based on their function in the lab.</li>
-   <ul>
-      <li>Administrators: Full access to all VMs, Active Directory management, and Splunk configurations.</li>
-   </ul>
-   <ul>
-      <li>Standard Users: Limited access to specific Windows or Linux machines for testing and learning purposes.</li>
-   </ul>
-   <ul>
-      <li>Guests: Minimal access, primarily for observing system activity without making changes.</li>
-   </ul>
-   <ul>
-      <br></br>
-      <li>Create groups for specific roles (e.g., admin, user, guest) by running the following code:</li>
-   </ul>
-   <img src="https://i.imgur.com/RXI5kjZ.png" height="30%" width="30%" alt="script"/>
-   <br/>
-   <li>Assign Permissions to Groups</li>
-   </ul>
-   <ul>
-      <li>Use the chmod and chown commands to set directory permissions.</li>
-   </ul>
-   <img src="https://i.imgur.com/9c335UK.png" height="30%" width="30%" alt="script"/>
-   <li>Enforce Access Control</li>
-   <ul>
-      <li>Verify permissions by switching to different users and testing to see if you can access the created directories.</li>
-   </ul>
-   <img src="https://i.imgur.com/pY3M8ON.png" height="30%" width="30%" alt="script"/>
-</ol>
-<h2>Step 5: Automate Password Policies </h2>
-<ol>
-   <li>Password Policy: Configure strong password requirements on all systems</li>
-   <ul>
-      <li>Minimum length: 12 characters.</li>
-   </ul>
-   <ul>
-      <li>Must include uppercase, lowercase, numbers, and special characters.</li>
-   </ul>
-   <ul>
-      <li>Prevent the reuse of the last five passwords.</li>
-   </ul>
-   <ul>
-      <li>Implement password expiration policies: Set passwords to expire every 60 days on all machines (via Group Policy for Windows and /etc/login.defs for Linux).</li>
-   </ul>
-   <li>Password Requirements</li>
-   <ul>
-      <li>Modify /etc/login.defs for system-wide policies by running the following:</li>
-      <img src="https://i.imgur.com/u0ywtmF.png" height="40%" width="40%" alt="script"/>
-      <br/>
-   </ul>
-   <ul>
-      <li>Set these parameters:
-         <br/>
-      </li>
-      <ul>
-         <li>PASS_MAX_DAYS: Sets the maximum number of days a user can use their current password before being required to change it.</li>
-      </ul>
-      <ul>
-         <li>PASS_MIN_DAYS: Defines the minimum number of days a user must wait before they can change their password again after setting it.</li>
-      </ul>
-      <ul>
-         <li>PASS_MIN_LEN: Sets the minimum length for user passwords to 12 characters.</li>
-      </ul>
-      <ul>
-         <li>PASS_WARN_AGE: Sends a warning to the user 7 days before their password is set to expire.</li>
-      </ul>
-      <img src="https://i.imgur.com/lhys6XV.png" height="25%" width="25%" alt="script"/>
-   </ul>
-   <li>Implement Account Lockout:</li>
-   <ul>
-      <li>Edit /etc/pam.d/common-auth to lock accounts after three failed login attempts by running the following:</li>
-      <img src="https://i.imgur.com/mdQCxCn.png" height="25%" width="25%" alt="script"/>
-      <br/>
-      <ul>
-         <li>Add the following line of code:</li>
-         <img src="https://i.imgur.com/nsauMaI.png" height="40%" width="40%" alt="script"/>
-         <br/>
-         <li>auth required pam_tally2.so: Specifies the use of the pam_tally2 module, which keeps a tally of failed login attempts for user accounts.
-         <li>deny = 3: Sets a limit of 3 failed login attempts before the account is locked.</li>
-         <li>unlock_time=600: Configures the lockout period to 600 seconds (10 minutes). After this time, the account is automatically unlocked.</li>
-         <li>onerr=fail: Ensures that if there’s an error in the PAM module, access is denied by default.</li>
-         <li>audit: Enables logging of authentication attempts, including both successful and failed logins.</li>
-         </li>
-      </ul>
-   </ul>
 </ol>
 
-<h2>Step 6: Monitor User Activity </h2>
-<ol>
-   <li>Enable Audit Logging</li>
-   <ul>
-      <li>Install auditd:</li>
-   </ul>
-   <br/>
-   <img src="https://i.imgur.com/tBsG67J.png" height="40%" width="40%" alt="script"/>
-   <br/>
-   <li>Start and enable the service:</li>
-   <img src="https://i.imgur.com/TWlGzOR.png" height="40%" width="40%" alt="script"/>
-   <br/>
-   <li>Define Audit Rules</li>
-   <img src="https://i.imgur.com/y0pv2di.png" height="40%" width="40%" alt="script" "/>
-   <br/>
-   </li></ul>
-   <h2>Step 7: Conclusion</h2>
+   <h2>Conclusion</h2>
  In this project, I developed an automated user management solution for Linux, covering onboarding, access control, and offboarding. I created a Bash script to automate account creation with secure default settings, restricted SSH access based on roles, and implemented group-based access controls. The project also includes login monitoring for proactive security and regular user access reviews, ensuring that only authorized users have access. This demonstrates my skills in Linux administration, automation, and security, showcasing essential competencies for a System Administrator role.     
 </ol>
 
