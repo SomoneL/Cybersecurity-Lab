@@ -119,35 +119,28 @@ The objective of the lab is to provide a hands-on learning experience in setting
    
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     
-<h2>Step 2: Prepare Your Environment </h2>
+<h2>Step 3: Active Directory and Control Domain </h2>
 <ol>
-   <li>Configure your VM Settings and Mount your Linux OS</li>
+   <li> Setup Active Directory Domain Services on the Windows Server</li>
    <ul>
-      <li>Allocate at least 2 CPUs, 4GB RAM, and 20GB storage for the VM.</li>
+      <li>On your Windows server, open up Server Manager. Navigate to Manage > Add Roles and Features. Select Next > Next, and check Active Directory Domain Services > Add Features. Advance until you can select install.</li>
    </ul>
    <ul>
-      <li>Choose the version that matches your host operating system (Windows, macOS, or Linux).</li>
-   </ul>
-   <li>Install Essential Tools:</li>
-   <ul>
-      <li>Once your VM has finished setting up, you will want to prepare it for use.</li>
+      <li>Once you receive the message "Configuration required. Installation succeeded on ADDC01, you can advance to the next steps. Locate the flag icon at the top of the window, and select "Promote this server to a domain controller". Select "Add a new forest", because we are creating a brand new domain. We will name it demodomain.local. On the next page, leave all defaults and create a password. Advance until the Configuration Wizard validates prerequisites, and then hit install. This should trigger you to be signed out and have the server restart.</li>
    </ul>
    <ul>
-      <li>You will want to update and upgrade packages by running the following bash script: 
+      <li>When the machine is back on, you should see DEMODOMAIN\Administrator as the user. In Server Manager, navigate to Tools > Active Directory Users and Computers.</li>
+   </ul>
+   <ul>
+      <li>Right-click demodomain.local > New > Organizational Unit > Name: "IT". Right-click in the space of this new OU > New > User. First name: "Jenny", Last name: "Smith", Full name: "Jenny Smith", User logon name: "jsmith". Create a password, then finish. Create a new OU called "HR" and create another different user.</li>
+   </ul>
+   <li>Windows 10 Machine Joins New Domain</li>
+   <ul>
+      <li>From the target machine, open Windows search and enter "Advanced System Properties" > Computer Name > Change. Check "Domain:" and enter "DEMODOMAIN.LOCAL". Navigate and right-click the network icon at the bottom right of the window > Open Network & Internet Settings > Change Adapter Options > Right-click adapter > Properties > Double-click Internet Protocol Version 4 (TCP/IPv4). Change the Preferred DNS server to 192.168.10.7. In Command Prompt, run ipconfig /all to verify that DNS Servers is set to 192.168.10.7. Now navigate back to Computer Name/Domain Changes (this window should still be open), and select "OK". Login with the administrator credentials and restart the machine.</li>
+   </ul>
+   <ul>
+      <li>When you go to login, select "Other User", and verify the domain the login is pointing to is "DEMODOMAIN". Login using the credentials of a user you created earlier under the IT or HR organizational unit. 
          <br/>
          <img src="https://i.imgur.com/xLBPzXn.png" height="40%" width="40%" alt="script"/>
          <br/>
@@ -161,7 +154,7 @@ The objective of the lab is to provide a hands-on learning experience in setting
       </li>
    </ul>
 </ol>
-<h2>Step 3: Automate User Account Creation </h2>
+<h2>Part 4 - Kali Linux Brute Force Attack on the Target Machine</h2>
 <ol>
    <li>Write a Bash Script</li>
    <ul>
