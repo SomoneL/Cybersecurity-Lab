@@ -4,21 +4,24 @@
 This project sets up a virtual environment using Oracle VM, VirtualBox with Windows 10, Kali Linux, Windows Server, and Ubuntu Server VMs. Network configurations enable communication via IP addresses and NAT Networks. Security includes Splunk Server for log analysis, Universal Forwarder for data forwarding, and Sysmon for endpoint monitoring. Testing involves Crowbar for brute force attacks, Atomic Red Team (ART) for general tests, and Splunk log analysis. Windows machines join an Active Directory domain with Remote Desktop enabled. PowerShell scripting automates tasks for a hands-on exploration of cybersecurity concepts and tools in a controlled environment.
 
 <h2>Objective </h2>
+The objective of the lab is to provide a hands-on learning experience in setting up a virtualized environment for cybersecurity testing and exploration. By creating and configuring multiple virtual machines (VMs) including Windows 10, Kali Linux, Windows Server, and Ubuntu Server, the lab aims to teach skills such as network configuration, security tool installation (Splunk, Sysmon), endpoint monitoring, and security testing (using Crowbar for brute force attacks). Joining Windows machines to an Active Directory domain and enabling Remote Desktop also adds to the learning objectives. PowerShell scripting is used for automation tasks. Overall, the lab enables participants to gain practical experience in cybersecurity concepts, tools, and techniques within a controlled environment.
+
+
 <br />
 
 
-<h2>Step 1: Download and Install VirtualBox and CentOS to add to your VM </h2>
+<h2>Step 1: VM Installation </h2>
 <ol>
-   <li>Go to the VirtualBox Website</li>
+   <li>Install Oracle VM VirtualBox</li>
    <ul>
       <li>Navigate to the VirtualBox Downloads Page.</li>
    </ul>
    <ul>
-      <li>Choose the version that matches your host operating system (Windows, macOS, or Linux).</li>
+      <li>Navigate to https://www.virtualbox.org/, download the compatible version, and install it with dependencies.</li>
    </ul>
-   <li>Download and Install VirtualBox</li>
+   <li>Download and Install Windows 10 to your VM</li>
    <ul>
-      <li>Click the link to download the VirtualBox installer for your operating system.</li>
+      <li>Visit https://www.microsoft.com/en-ca/software-download/windows10, get "Create Windows 10 installation media", click "Download tool now", choose "Create installation media (USB flash drive, DVD, or ISO file) for another PC", then select "ISO file" and save it. In Oracle VM VirtualBox Manager, click "Add" to create a new VM, name it, choose the previously downloaded Windows 10 ISO, select 4096MB RAM, 1 CPU, 50GB virtual disk, and finish. Start the VM, follow the installation prompts, select "Custom: Install Windows only (advanced)", and let Windows 10 install.</li>
    </ul>
    <ul>
       <li>Open the downloaded installer and follow the prompts to install VirtualBox.</li>
