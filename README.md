@@ -18,24 +18,31 @@ The objective of the lab is to provide a hands-on learning experience in setting
    </ul>
    <li>Download and Install Windows 10 to your VM</li>
    <ul>
-      <li><a href="https://www.microsoft.com/en-ca/software-download/windows10/"> Vist Microsoft's Website</a>, get "Create Windows 10 installation media", click "Download tool now", choose "Create installation media (USB flash drive, DVD, or ISO file) for another PC", then select "ISO file" and save it. </li>
+      <li> Vist<a href="https://www.microsoft.com/en-ca/software-download/windows10/"> Microsoft's </a>Website, get "Create Windows 10 installation media", click "Download tool now", choose "Create installation media (USB flash drive, DVD, or ISO file) for another PC", then select "ISO file" and save it. </li>
    </ul>
    <ul> 
       <li>In Oracle VM VirtualBox Manager, click "Add" to create a new VM, name it, choose the previously downloaded Windows 10 ISO, select 4096MB RAM, 1 CPU, 50GB virtual disk, and finish. Start the VM, follow the installation prompts, select "Custom: Install Windows only (advanced)", and let Windows 10 install. </li>
    </ul>
    <li>Download and Install Kali Linux to your VM</li>
    <ul>
-      <li><a href ="https://www.kali.org/"> Get Kali Linux</a> and download the VM version, and also download/install <a href "https://www.7-zip.org/> 7-zip</a>. Extract Kali Linux via 7-zip, import it into Oracle VM VirtualBox Manager, and start the VM.</li>
+      <li>Get <a href ="https://www.kali.org/">Kali Linux</a> and download the VM version, and also download/install <a href "https://www.7-zip.org/> 7-zip</a>. Extract Kali Linux via 7-zip, import it into Oracle VM VirtualBox Manager, and start the VM.</li>
       </ul>
    <li>Download and Install Windows Server 2022</li>
    <ul>
-      <li><a href = "https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2022">Download Windows Server 2022 ISO </a> and fill out the form, download "64-bit edition", create a new VM in Oracle VM VirtualBox Manager with the ISO, 4096MB RAM, 1 CPU, 50GB virtual disk, and finish. Start the VM, select "Install now", choose "Windows Server 2022 Standard Evaluation (Desktop Experience)", customize settings, create a password, and finish..</li>
+      <li>Download <a href = "https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2022">Windows Server 2022 ISO </a> and fill out the form, download "64-bit edition", create a new VM in Oracle VM VirtualBox Manager with the ISO, 4096MB RAM, 1 CPU, 50GB virtual disk, and finish. Start the VM, select "Install now", choose "Windows Server 2022 Standard Evaluation (Desktop Experience)", customize settings, create a password, and finish..</li>
    </ul>
      <li>Download and Install Ubuntu Server</li>
    <ul>
-      <li>Navigate to https://ubuntu.com/server. In products, Ubuntu Server, download Ubuntu Server, download Ubuntu Server. This lab uses version 22.04.4 LTS. Create a new VM in Oracle VM VirtualBox Manager with the ISO, 8192MB RAM, 2 CPUs, 100GB virtual disk, and finish. Start the VM, select "Try or Install Ubuntu Server", continue through a series of "Done" and "Continue", then fill out the form before continuing the installation. Finally, reboot. Error messages are expected. After rebooting, login and run sudo apt-get update && sudo apt-get upgrade -y. After this completes, hit "Enter".</li>
+      <li>Navigate to the <a href = "https://ubuntu.com/server"> Ubuntu </a> download. For this lab, we will use version 22.04.4 LTS.  </li>
      
    </ul>
+   <ul><li>
+     Create a new VM in Oracle VM VirtualBox Manager with the ISO, 8192MB RAM, 2 CPUs, 100GB virtual disk, and finish. Start the VM, select "Try or Install Ubuntu Server", continue through a series of "Done" and "Continue", then fill out the form before continuing the installation. 
+   </li></ul>
+   <ul><li>
+      Finally, reboot. Error messages are expected. After rebooting, login and run sudo apt-get update && sudo apt-get upgrade -y. After this completes, hit "Enter". 
+   </li></ul>
+   
 </ol>
      <li>Summary: You should now have Oracle VM VirtualBox Manager installed with four VMs running Windows 10, Kali Linux, Windows Server, and Splunk Server.</li> 
 
