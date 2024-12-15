@@ -25,11 +25,11 @@ The objective of the lab is to provide a hands-on learning experience in setting
    </ul>
    <li>Download and Install Kali Linux to your VM</li>
    <ul>
-      <li>Get Kali Linux from https://www.kali.org/, download the VM version, and also download/install 7-zip from https://www.7-zip.org/. Extract Kali Linux via 7-zip, import it into Oracle VM VirtualBox Manager, and start the VM.</li>
+      <li><a href ="https://www.kali.org/"> Get Kali Linux</a> and download the VM version, and also download/install <a href "https://www.7-zip.org/> 7-zip</a>. Extract Kali Linux via 7-zip, import it into Oracle VM VirtualBox Manager, and start the VM.</li>
       </ul>
    <li>Download and Install Windows Server 2022</li>
    <ul>
-      <li> Download Windows Server 2022 ISO from https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2022, fill out the form, download "64-bit edition", create a new VM in Oracle VM VirtualBox Manager with the ISO, 4096MB RAM, 1 CPU, 50GB virtual disk, and finish. Start the VM, select "Install now", choose "Windows Server 2022 Standard Evaluation (Desktop Experience)", customize settings, create a password, and finish..</li>
+      <li><a href = "https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2022">Download Windows Server 2022 ISO </a> and fill out the form, download "64-bit edition", create a new VM in Oracle VM VirtualBox Manager with the ISO, 4096MB RAM, 1 CPU, 50GB virtual disk, and finish. Start the VM, select "Install now", choose "Windows Server 2022 Standard Evaluation (Desktop Experience)", customize settings, create a password, and finish..</li>
    </ul>
      <li>Download and Install Ubuntu Server</li>
    <ul>
