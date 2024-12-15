@@ -14,14 +14,14 @@ The objective of the lab is to provide a hands-on learning experience in setting
 <ol>
    <li>Install Oracle VM VirtualBox</li>
    <ul>
-      <li>Navigate to the VirtualBox Downloads Page.</li>
-   </ul>
-   <ul>
-      <li>Navigate to https://www.virtualbox.org/, download the compatible version, and install it with dependencies.</li>
+      <li>Navigate to <a href="https://www.virtualbox.org/"> VirtualBox</a>, download the compatible version, and install it with dependencies.</li>
    </ul>
    <li>Download and Install Windows 10 to your VM</li>
    <ul>
-      <li>Visit https://www.microsoft.com/en-ca/software-download/windows10, get "Create Windows 10 installation media", click "Download tool now", choose "Create installation media (USB flash drive, DVD, or ISO file) for another PC", then select "ISO file" and save it. In Oracle VM VirtualBox Manager, click "Add" to create a new VM, name it, choose the previously downloaded Windows 10 ISO, select 4096MB RAM, 1 CPU, 50GB virtual disk, and finish. Start the VM, follow the installation prompts, select "Custom: Install Windows only (advanced)", and let Windows 10 install.</li>
+      <li><a href="https://www.microsoft.com/en-ca/software-download/windows10/"> Vist Microsoft's Website</a>, get "Create Windows 10 installation media", click "Download tool now", choose "Create installation media (USB flash drive, DVD, or ISO file) for another PC", then select "ISO file" and save it. </li>
+   </ul>
+   <ul> 
+      <li>In Oracle VM VirtualBox Manager, click "Add" to create a new VM, name it, choose the previously downloaded Windows 10 ISO, select 4096MB RAM, 1 CPU, 50GB virtual disk, and finish. Start the VM, follow the installation prompts, select "Custom: Install Windows only (advanced)", and let Windows 10 install. </li>
    </ul>
    <li>Download and Install Kali Linux to your VM</li>
    <ul>
